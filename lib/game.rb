@@ -17,40 +17,40 @@ class Player
                           PURPLE: '🟣' }
 
   def initialize
-    @name = player_name
-    @circle = @@available_circles[player_circle_sym]
+    @name = Player.player_name
+    @circle = @@available_circles[Player.player_circle_sym]
     @@players << self
-    Player.remove_available_circle(circle)
+    make_my_circle_unavailable
   end
 
-  def player_name
-    name = nil
+  def self.player_name
+    puts "Choose name for player #{@@players.length + 1}"
 
-    until player_name_valid?(name)
-      puts "Choose name for player #{@@players.length + 1}"
+    loop do
       name = gets.chomp.strip
-    end
+      return name if Player.player_name_valid?(name)
 
-    name
+      puts 'Invalid name! Please try again.'
+    end
   end
 
-  def player_name_valid?(name)
+  def self.player_name_valid?(name)
     name && !@@players.map(&:name).include?(name) && !name.length.zero?
   end
 
-  def player_circle_sym
-    circle = nil
+  def self.player_circle_sym
+    puts 'Choose your circle: '
+    Player.print_available_circles
 
-    until circle_valid?(circle)
-      puts 'Choose your circle: '
-      Player.print_available_circles
+    loop do
       circle = gets.chomp.strip
-    end
+      return circle.upcase.to_sym if Player.circle_valid?(circle)
 
-    circle.upcase.to_sym
+      puts 'Invalid circle! Please try again.'
+    end
   end
 
-  def circle_valid?(circle)
+  def self.circle_valid?(circle)
     return false unless circle
 
     @@available_circles.keys.map.include?(circle.upcase.to_sym)
@@ -66,7 +66,7 @@ class Player
     hash.keys.reduce([]) { |arr, c| arr + ["#{c} #{hash[c]}"] }
   end
 
-  def self.remove_available_circle(circle)
+  def make_my_circle_unavailable
     @@available_circles.each do |k, v|
       @@available_circles.delete(k) if v == circle
     end
