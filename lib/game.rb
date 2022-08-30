@@ -61,6 +61,10 @@ class Player
     puts circles_array.join('   ')
   end
 
+  def self.available_circles
+    @@available_circles
+  end
+
   def self.available_circles_array
     hash = @@available_circles
     hash.keys.reduce([]) { |arr, c| arr + ["#{c} #{hash[c]}"] }
@@ -73,5 +77,5 @@ class Player
   end
 end
 
-p1 = Player.new
-p2 = Player.new
+# p1 = Player.new
+# p2 = Player.new
