@@ -39,7 +39,7 @@ class Connect4
 
     pretty_print_board
     winner = [player1, player2][(current_round - 1) % 2]
-    puts "#{winner.name} wins the game!"
+    puts "🎊 #{winner.name} wins the game! 🎊"
   end
 
   def player_position(player)
@@ -49,7 +49,7 @@ class Connect4
       position = gets.chomp
       return position.to_i if position_valid?(position)
 
-      puts 'Invalid position! Please try again.'
+      puts '⛔ Invalid position! Please try again.'
     end
   end
 
@@ -132,13 +132,14 @@ class Player
   end
 
   def self.player_name
-    puts "Choose name for player #{@@players.length + 1}"
+    puts "\nChoose name for player #{@@players.length + 1}"
+    invalid_name_message = '⛔ Invalid name! Please try again.'
 
     loop do
       name = gets.chomp.strip
       return name if Player.player_name_valid?(name)
 
-      puts 'Invalid name! Please try again.'
+      puts @@players.length.zero? ? invalid_name_message : "#{invalid_name_message} Make sure your name is unique."
     end
   end
 
@@ -147,14 +148,14 @@ class Player
   end
 
   def self.player_circle_sym
-    puts 'Choose your circle: '
+    puts "\nChoose your circle: "
     Player.print_available_circles
 
     loop do
       circle = gets.chomp.strip
       return circle.upcase.to_sym if Player.circle_valid?(circle)
 
-      puts 'Invalid circle! Please try again.'
+      puts '⛔ Invalid circle! Please try again.'
     end
   end
 
