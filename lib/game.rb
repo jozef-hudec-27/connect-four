@@ -1,3 +1,37 @@
+module TerminalMessages
+  def self.choose_name_message(n)
+    "\nChoose name for player #{n}"
+  end
+
+  def self.choose_circle_message
+    "\nChoose your circle: "
+  end
+
+  def self.invalid_name_message
+    '⛔ Invalid name! Please try again.'
+  end
+
+  def self.invalid_circle_message
+    '⛔ Invalid circle! Please try again.'
+  end
+
+  def self.invalid_position_message
+    '⛔ Invalid position! Please try again.'
+  end
+
+  def self.game_winner_message(name)
+    "🎊 #{name} wins the game! 🎊"
+  end
+
+  def self.game_tie_message
+    "The board is full. It's a tie!"
+  end
+
+  def self.pick_position_message(name, circle)
+    "It's #{name}'s (#{circle}) turn! Pick your position."
+  end
+end
+
 class Connect4
   attr_reader :board, :rows, :cols, :player1, :player2
 
@@ -22,10 +56,10 @@ class Connect4
   def play
     rounds_played = game_loop - 1
 
-    return puts "The board is full. It's a tie!" if tie?
+    return puts TerminalMessages.game_tie_message if tie?
 
     winner = [player1, player2][rounds_played % 2]
-    puts "🎊 #{winner.name} wins the game! 🎊"
+    puts TerminalMessages.game_winner_message(winner.name)
   end
 
   def game_loop
@@ -44,13 +78,13 @@ class Connect4
   end
 
   def player_position(player)
-    puts "It's #{player.name}'s (#{player.circle}) turn! Pick your position."
+    puts TerminalMessages.pick_position_message(player.name, player.circle)
 
     loop do
       position = gets.chomp
       return position.to_i if position_valid?(position)
 
-      puts '⛔ Invalid position! Please try again.'
+      puts TerminalMessages.invalid_position_message
     end
   end
 
@@ -139,8 +173,8 @@ class Player
   end
 
   def self.player_name
-    puts "\nChoose name for player #{@@players.length + 1}"
-    invalid_name_message = '⛔ Invalid name! Please try again.'
+    puts TerminalMessages.choose_name_message(@@players.length + 1)
+    invalid_name_message = TerminalMessages.invalid_name_message
 
     loop do
       name = gets.chomp.strip
@@ -155,14 +189,14 @@ class Player
   end
 
   def self.player_circle_sym
-    puts "\nChoose your circle: "
+    puts TerminalMessages.choose_circle_message
     Player.print_available_circles
 
     loop do
       circle = gets.chomp.strip
       return circle.upcase.to_sym if Player.circle_valid?(circle)
 
-      puts '⛔ Invalid circle! Please try again.'
+      puts TerminalMessages.invalid_circle_message
     end
   end
 
