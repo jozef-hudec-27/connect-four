@@ -10,6 +10,20 @@ class Connect4
   end
 
   def pretty_print_board
+    pretty_board = [['1️⃣', ' 2️⃣', ' 3️⃣', ' 4️⃣', ' 5️⃣', ' 6️⃣', ' 7️⃣']]
+
+    rows.times do |row|
+      pretty_board << []
+
+      cols.times do |col|
+        current = board[row][col]
+        pretty_board[-1].push(current.nil? ? '⬜' : current.circle)
+      end
+    end
+
+    pretty_board.each do |row|
+      puts row.join(' ')
+    end
   end
 
   def play
@@ -95,10 +109,10 @@ class Player
                           PURPLE: '🟣' }
 
   def initialize
-    @name = Player.player_name
-    @circle = @@available_circles[Player.player_circle_sym]
-    # @name = "Player #{@@players.length + 1}"
-    # @circle = @@availables_circles.values.sample
+    # @name = Player.player_name
+    # @circle = @@available_circles[Player.player_circle_sym]
+    @name = "Player #{@@players.length + 1}"
+    @circle = @@available_circles.values.sample
     @@players << self
     make_my_circle_unavailable
   end
@@ -157,15 +171,15 @@ class Player
   end
 end
 
-# pl1 = Player.new
-# pl2 = Player.new
-# b = [
-#   [nil, nil, nil, nil, nil, nil, pl2],
-#   [nil, nil, nil, nil, nil, nil, pl1],
-#   [nil, nil, nil, nil, nil, nil, pl2],
-#   [nil, pl2, nil, nil, nil, nil, pl1],
-#   [nil, pl1, nil, nil, nil, nil, pl2],
-#   [nil, pl1, pl2, nil, nil, nil, pl1]
-# ]
-c4 = Connect4.new
-p c4.winner
+pl1 = Player.new
+pl2 = Player.new
+b = [
+  [nil, nil, nil, nil, nil, nil, pl2],
+  [nil, nil, nil, nil, nil, nil, pl1],
+  [nil, nil, nil, nil, nil, nil, pl2],
+  [nil, pl2, nil, nil, nil, nil, pl1],
+  [nil, pl1, nil, nil, nil, nil, pl2],
+  [nil, pl1, pl2, nil, nil, nil, pl1]
+]
+c4 = Connect4.new(b, pl1, pl2)
+c4.pretty_print_board
