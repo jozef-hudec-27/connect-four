@@ -30,7 +30,7 @@ class Connect4
   def play
     current_round = 0
 
-    until winner
+    until winner || board_full?
       pretty_print_board
       current_player = [player1, player2][current_round % 2]
       play_round(current_player, player_position(current_player))
@@ -38,6 +38,9 @@ class Connect4
     end
 
     pretty_print_board
+
+    return puts "The board is full. It's a tie!" if tie?
+
     winner = [player1, player2][(current_round - 1) % 2]
     puts "🎊 #{winner.name} wins the game! 🎊"
   end
@@ -79,6 +82,14 @@ class Connect4
     end
 
     nil
+  end
+
+  def board_full?
+    board.flatten.uniq.length == 2 && board[0][0]
+  end
+
+  def tie?
+    board_full? && !winner
   end
 
   def horizontal_winner?(row, col)
