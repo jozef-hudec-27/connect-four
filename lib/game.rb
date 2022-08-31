@@ -1,5 +1,5 @@
 class Connect4
-  attr_reader :board, :rows, :cols
+  attr_reader :board, :rows, :cols, :player1, :player2
 
   def initialize(board = Array.new(6) { Array.new(7, nil) }, player1 = Player.new, player2 = Player.new)
     @board = board
@@ -7,10 +7,11 @@ class Connect4
     @cols = board[0].length
     @player1 = player1
     @player2 = player2
+    play
   end
 
   def pretty_print_board
-    pretty_board = [['1️⃣', ' 2️⃣', ' 3️⃣', ' 4️⃣', ' 5️⃣', ' 6️⃣', ' 7️⃣']]
+    pretty_board = [[], ['1️⃣', ' 2️⃣', ' 3️⃣', ' 4️⃣', ' 5️⃣', ' 6️⃣', ' 7️⃣']]
 
     rows.times do |row|
       pretty_board << []
@@ -35,10 +36,14 @@ class Connect4
       play_round(current_player, player_position(current_player))
       current_round += 1
     end
+
+    pretty_print_board
+    winner = [player1, player2][(current_round - 1) % 2]
+    puts "#{winner.name} wins the game!"
   end
 
   def player_position(player)
-    puts "It's #{player.name}'s turn! Pick your position."
+    puts "It's #{player.name}'s (#{player.circle}) turn! Pick your position."
 
     loop do
       position = gets.chomp
@@ -49,12 +54,21 @@ class Connect4
   end
 
   def position_valid?(position)
-    return false if position.to_i.between?(1, 7)
+    return false unless position.to_i.between?(1, 7)
 
-    boarrd[0][position.to_i - 1].nil?
+    board[0][position.to_i - 1].nil?
   end
 
   def play_round(player, position)
+    col = position - 1
+    row = available_row(col)
+    board[row][col] = player
+  end
+
+  def available_row(col)
+    (rows - 1).downto(0) do |row|
+      return row if board[row][col].nil?
+    end
   end
 
   def winner
@@ -109,10 +123,10 @@ class Player
                           PURPLE: '🟣' }
 
   def initialize
-    # @name = Player.player_name
-    # @circle = @@available_circles[Player.player_circle_sym]
-    @name = "Player #{@@players.length + 1}"
-    @circle = @@available_circles.values.sample
+    @name = Player.player_name
+    @circle = @@available_circles[Player.player_circle_sym]
+    # @name = "Player #{@@players.length + 1}"
+    # @circle = @@available_circles.values.sample
     @@players << self
     make_my_circle_unavailable
   end
@@ -171,15 +185,4 @@ class Player
   end
 end
 
-pl1 = Player.new
-pl2 = Player.new
-b = [
-  [nil, nil, nil, nil, nil, nil, pl2],
-  [nil, nil, nil, nil, nil, nil, pl1],
-  [nil, nil, nil, nil, nil, nil, pl2],
-  [nil, pl2, nil, nil, nil, nil, pl1],
-  [nil, pl1, nil, nil, nil, nil, pl2],
-  [nil, pl1, pl2, nil, nil, nil, pl1]
-]
-c4 = Connect4.new(b, pl1, pl2)
-c4.pretty_print_board
+c4 = Connect4.new
