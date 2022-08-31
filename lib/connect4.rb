@@ -27,7 +27,7 @@ class Connect4
 
     return puts TerminalMessages.game_tie_message if tie?
 
-    winner = [player1, player2][rounds_played % 2]
+    # winner = [player1, player2][rounds_played % 2]
     puts TerminalMessages.game_winner_message(winner.name)
   end
 

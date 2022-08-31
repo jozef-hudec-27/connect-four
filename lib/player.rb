@@ -4,8 +4,7 @@ class Player
   attr_reader :name, :circle
 
   @@players = []
-  @@available_circles = { WHITE: '⚪', BLACK: '⚫', RED: '🔴', BLUE: '🔵', GREEN: '🟢', ORANGE: '🟠', YELLOW: '🟡',
-                          PURPLE: '🟣' }
+  @@available_circles = { BLACK: '⚫', RED: '🔴', BLUE: '🔵', GREEN: '🟢', ORANGE: '🟠', YELLOW: '🟡', PURPLE: '🟣' }
 
   def initialize
     @name = Player.player_name
@@ -60,6 +59,11 @@ class Player
   def self.available_circles_array
     hash = @@available_circles
     hash.keys.reduce([]) { |arr, c| arr + ["#{c} #{hash[c]}"] }
+  end
+
+  def self.clear
+    @@players = []
+    @@available_circles = { BLACK: '⚫', RED: '🔴', BLUE: '🔵', GREEN: '🟢', ORANGE: '🟠', YELLOW: '🟡', PURPLE: '🟣' }
   end
 
   def make_my_circle_unavailable

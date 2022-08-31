@@ -30,4 +30,12 @@ module TerminalMessages
   def self.pick_position_message(name, circle)
     "It's #{name}'s (#{circle}) turn! Pick your position."
   end
+
+  def self.play_again_confirm_message
+    "\nDo you want to play again? Enter 'y' if yes."
+  end
+
+  def self.end_message
+    'Thanks for playing ❤️'
+  end
 end
