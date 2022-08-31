@@ -23,12 +23,11 @@ class Connect4
   end
 
   def play
-    rounds_played = game_loop - 1
+    game_loop
 
     return puts TerminalMessages.game_tie_message if tie?
 
-    # winner = [player1, player2][rounds_played % 2]
-    puts TerminalMessages.game_winner_message(winner.name)
+    puts TerminalMessages.game_winner_message(winner&.name)
   end
 
   def game_loop
@@ -37,13 +36,14 @@ class Connect4
     until winner || board_full?
       pretty_print_board
       current_player = [player1, player2][round % 2]
-      play_round(current_player, player_position(current_player))
+      position = player_position(current_player)
+      return if position == 'quit'
+
+      play_round(current_player, position)
       round += 1
     end
 
     pretty_print_board
-
-    round
   end
 
   def player_position(player)
@@ -51,14 +51,14 @@ class Connect4
 
     loop do
       position = gets.chomp
-      return position.to_i if position_valid?(position)
+      return (position == 'quit' ? 'quit' : position.to_i) if position_valid?(position)
 
       puts TerminalMessages.invalid_position_message
     end
   end
 
   def position_valid?(position)
-    return false unless position.to_i.between?(1, 7)
+    return false unless position.to_i.between?(1, 7) || position == 'quit'
 
     board[0][position.to_i - 1].nil?
   end

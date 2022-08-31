@@ -20,7 +20,7 @@ module TerminalMessages
   end
 
   def self.game_winner_message(name)
-    "🎊 #{name} wins the game! 🎊"
+    name && "🎊 #{name} wins the game! 🎊"
   end
 
   def self.game_tie_message
