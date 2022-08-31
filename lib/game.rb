@@ -11,38 +11,36 @@ class Connect4
   end
 
   def pretty_print_board
+    pretty_row = ->(row) { row.map { |place| place.nil? ? '⬜' : place.circle } }
+
     pretty_board = [[], ['1️⃣', ' 2️⃣', ' 3️⃣', ' 4️⃣', ' 5️⃣', ' 6️⃣', ' 7️⃣']]
+    pretty_board.concat(board.map { |row| pretty_row.call(row) })
 
-    rows.times do |row|
-      pretty_board << []
-
-      cols.times do |col|
-        current = board[row][col]
-        pretty_board[-1].push(current.nil? ? '⬜' : current.circle)
-      end
-    end
-
-    pretty_board.each do |row|
-      puts row.join(' ')
-    end
+    pretty_board.each { |row| puts row.join(' ') }
   end
 
   def play
-    current_round = 0
+    rounds_played = game_loop - 1
+
+    return puts "The board is full. It's a tie!" if tie?
+
+    winner = [player1, player2][rounds_played % 2]
+    puts "🎊 #{winner.name} wins the game! 🎊"
+  end
+
+  def game_loop
+    round = 0
 
     until winner || board_full?
       pretty_print_board
-      current_player = [player1, player2][current_round % 2]
+      current_player = [player1, player2][round % 2]
       play_round(current_player, player_position(current_player))
-      current_round += 1
+      round += 1
     end
 
     pretty_print_board
 
-    return puts "The board is full. It's a tie!" if tie?
-
-    winner = [player1, player2][(current_round - 1) % 2]
-    puts "🎊 #{winner.name} wins the game! 🎊"
+    round
   end
 
   def player_position(player)
@@ -136,8 +134,6 @@ class Player
   def initialize
     @name = Player.player_name
     @circle = @@available_circles[Player.player_circle_sym]
-    # @name = "Player #{@@players.length + 1}"
-    # @circle = @@available_circles.values.sample
     @@players << self
     make_my_circle_unavailable
   end
