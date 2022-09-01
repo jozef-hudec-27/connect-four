@@ -13,4 +13,4 @@ In short... *(from Wikipedia, slightly adjusted)*
 - You can enter ``` quit ``` into the terminal instead of the position, if you want to exit the current game
 
 ## Side notes
-This was my first project using Rspec, so the tests in the ``` spec ``` file are nowhere near best, and surely don't follow the majority of best practices.
+This was my first project using Rspec, so the tests in the ``` spec ``` folder are nowhere near best, and surely don't follow the majority of best practices.
