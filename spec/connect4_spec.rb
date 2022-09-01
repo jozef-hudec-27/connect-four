@@ -9,14 +9,16 @@ describe Connect4 do
       let(:pl2) { double('Player', name: 'player2', circle: '🔴') }
 
       context 'and he is in horizontal direction' do
-        let(:board) {[
-          [nil, nil, nil, nil, nil, nil, nil],
-          [nil, nil, nil, nil, nil, nil, nil],
-          [nil, nil, nil, nil, nil, nil, nil],
-          [nil, nil, nil, nil, nil, nil, pl1],
-          [nil, nil, nil, nil, nil, nil, pl1],
-          [pl2, pl2, pl2, pl2, nil, nil, pl1]
-        ]}
+        let(:board) {
+          [
+            [nil, nil, nil, nil, nil, nil, nil],
+            [nil, nil, nil, nil, nil, nil, nil],
+            [nil, nil, nil, nil, nil, nil, nil],
+            [nil, nil, nil, nil, nil, nil, pl1],
+            [nil, nil, nil, nil, nil, nil, pl1],
+            [pl2, pl2, pl2, pl2, nil, nil, pl1]
+          ]
+        }
         subject(:connect4) { described_class.new(board, pl1, pl2) }
 
         it 'returns the winner' do
@@ -25,14 +27,16 @@ describe Connect4 do
       end
 
       context 'and he is in vertical direction' do
-        let(:board) {[
-          [nil, nil, nil, nil, nil, nil, nil],
-          [nil, nil, nil, nil, nil, nil, nil],
-          [nil, nil, nil, nil, nil, nil, pl1],
-          [nil, nil, nil, nil, nil, nil, pl1],
-          [nil, nil, nil, nil, nil, nil, pl1],
-          [pl2, pl2, pl2, nil, nil, nil, pl1]
-        ]}
+        let(:board) {
+          [
+            [nil, nil, nil, nil, nil, nil, nil],
+            [nil, nil, nil, nil, nil, nil, nil],
+            [nil, nil, nil, nil, nil, nil, pl1],
+            [nil, nil, nil, nil, nil, nil, pl1],
+            [nil, nil, nil, nil, nil, nil, pl1],
+            [pl2, pl2, pl2, nil, nil, nil, pl1]
+          ]
+        }
         subject(:connect4) { described_class.new(board, pl1, pl2) }
 
         it 'returns the winner' do
@@ -41,14 +45,16 @@ describe Connect4 do
       end
 
       context 'and he is in right diagonal direction' do
-        let(:board) {[
-          [nil, nil, nil, nil, nil, nil, nil],
-          [nil, nil, nil, nil, nil, nil, nil],
-          [nil, nil, nil, nil, pl1, nil, nil],
-          [nil, nil, nil, pl1, pl2, nil, nil],
-          [nil, nil, pl1, pl2, pl1, nil, nil],
-          [nil, pl1, pl2, pl2, pl1, pl2, nil]
-        ]}
+        let(:board) {
+          [
+            [nil, nil, nil, nil, nil, nil, nil],
+            [nil, nil, nil, nil, nil, nil, nil],
+            [nil, nil, nil, nil, pl1, nil, nil],
+            [nil, nil, nil, pl1, pl2, nil, nil],
+            [nil, nil, pl1, pl2, pl1, nil, nil],
+            [nil, pl1, pl2, pl2, pl1, pl2, nil]
+          ]
+        }
         subject(:connect4) { described_class.new(board, pl1, pl2) }
 
         it 'returns the winner' do
@@ -57,14 +63,16 @@ describe Connect4 do
       end
 
       context 'and he is in left diagonal direction' do
-        let(:board) {[
-          [nil, nil, nil, nil, nil, nil, nil],
-          [nil, nil, nil, nil, nil, nil, nil],
-          [nil, pl2, nil, nil, nil, nil, nil],
-          [nil, pl1, pl2, nil, nil, nil, nil],
-          [nil, pl1, pl1, pl2, nil, nil, nil],
-          [nil, pl1, pl1, pl1, pl2, nil, nil]
-        ]}
+        let(:board) {
+          [
+            [nil, nil, nil, nil, nil, nil, nil],
+            [nil, nil, nil, nil, nil, nil, nil],
+            [nil, pl2, nil, nil, nil, nil, nil],
+            [nil, pl1, pl2, nil, nil, nil, nil],
+            [nil, pl1, pl1, pl2, nil, nil, nil],
+            [nil, pl1, pl1, pl1, pl2, nil, nil]
+          ]
+        }
         subject(:connect4) { described_class.new(board, pl1, pl2) }
 
         it 'returns the winner' do
@@ -76,14 +84,16 @@ describe Connect4 do
     context 'when there is not a winner' do
       let(:pl1) { double('Player', name: 'player1', circle: '⚫') }
       let(:pl2) { double('Player', name: 'player2', circle: '🔴') }
-      let(:board) {[
-        [nil, nil, nil, nil, nil, nil, nil],
-        [nil, nil, nil, nil, nil, nil, nil],
-        [nil, nil, nil, nil, nil, nil, nil],
-        [nil, nil, nil, nil, nil, nil, nil],
-        [nil, nil, nil, nil, nil, nil, pl1],
-        [nil, nil, pl2, nil, nil, nil, pl1]
-      ]}
+      let(:board) {
+        [
+          [nil, nil, nil, nil, nil, nil, nil],
+          [nil, nil, nil, nil, nil, nil, nil],
+          [nil, nil, nil, nil, nil, nil, nil],
+          [nil, nil, nil, nil, nil, nil, nil],
+          [nil, nil, nil, nil, nil, nil, pl1],
+          [nil, nil, pl2, nil, nil, nil, pl1]
+        ]
+      }
       subject(:connect4) { described_class.new(board, pl1, pl2) }
 
       it 'returns nil' do
@@ -96,14 +106,16 @@ describe Connect4 do
     context 'when the board is full' do
       let(:pl1) { double('Player', name: 'player1', circle: '⚫') }
       let(:pl2) { double('Player', name: 'player2', circle: '🔴') }
-      let(:board) {[
-        [pl2, pl2, pl2, pl1, pl1, pl1, pl1],
-        [pl2, pl2, pl2, pl2, pl1, pl1, pl1],
-        [pl2, pl2, pl2, pl1, pl1, pl1, pl1],
-        [pl2, pl2, pl2, pl2, pl1, pl1, pl1],
-        [pl2, pl2, pl2, pl1, pl1, pl1, pl1],
-        [pl2, pl2, pl2, pl2, pl1, pl1, pl1]
-      ]}
+      let(:board) {
+        [
+          [pl2, pl2, pl2, pl1, pl1, pl1, pl1],
+          [pl2, pl2, pl2, pl2, pl1, pl1, pl1],
+          [pl2, pl2, pl2, pl1, pl1, pl1, pl1],
+          [pl2, pl2, pl2, pl2, pl1, pl1, pl1],
+          [pl2, pl2, pl2, pl1, pl1, pl1, pl1],
+          [pl2, pl2, pl2, pl2, pl1, pl1, pl1]
+        ]
+      }
       subject(:connect4) { described_class.new(board, pl1, pl2) }
 
       it 'returns truthy value' do
@@ -184,14 +196,16 @@ describe Connect4 do
     end
 
     context 'when given num between 1 and 7 in a full column' do
-      let(:board) {[
-        ['pl1', nil, nil, nil, nil, nil, nil],
-        ['pl2', nil, nil, nil, nil, nil, nil],
-        ['pl1', nil, nil, nil, nil, nil, nil],
-        ['pl2', nil, nil, nil, nil, nil, nil],
-        ['pl1', nil, nil, nil, nil, nil, nil],
-        ['pl2', nil, nil, nil, nil, nil, nil]
-      ]}
+      let(:board) {
+        [
+          ['pl1', nil, nil, nil, nil, nil, nil],
+          ['pl2', nil, nil, nil, nil, nil, nil],
+          ['pl1', nil, nil, nil, nil, nil, nil],
+          ['pl2', nil, nil, nil, nil, nil, nil],
+          ['pl1', nil, nil, nil, nil, nil, nil],
+          ['pl2', nil, nil, nil, nil, nil, nil]
+        ]
+      }
       subject(:connect4) { described_class.new(board, 'pl1', 'pl2') }
 
       it 'returns false' do
@@ -204,22 +218,26 @@ describe Connect4 do
   describe '#play_round' do
     let(:pl1) { double('Player', name: 'player1', circle: '⚫') }
     let(:pl2) { double('Player', name: 'player2', circle: '🔴') }
-    let(:board_before) {[
-      [nil, nil, nil, nil, nil, nil, nil],
-      [nil, nil, nil, nil, nil, nil, nil],
-      [nil, nil, nil, nil, nil, nil, nil],
-      [nil, nil, nil, nil, nil, nil, nil],
-      [pl2, pl2, nil, nil, nil, nil, nil],
-      [pl1, pl1, nil, nil, nil, nil, nil]
-    ]}
-    let(:board_after) {[
-      [nil, nil, nil, nil, nil, nil, nil],
-      [nil, nil, nil, nil, nil, nil, nil],
-      [nil, nil, nil, nil, nil, nil, nil],
-      [nil, pl1, nil, nil, nil, nil, nil],
-      [pl2, pl2, nil, nil, nil, nil, nil],
-      [pl1, pl1, nil, nil, nil, nil, nil]
-    ]}
+    let(:board_before) {
+      [
+        [nil, nil, nil, nil, nil, nil, nil],
+        [nil, nil, nil, nil, nil, nil, nil],
+        [nil, nil, nil, nil, nil, nil, nil],
+        [nil, nil, nil, nil, nil, nil, nil],
+        [pl2, pl2, nil, nil, nil, nil, nil],
+        [pl1, pl1, nil, nil, nil, nil, nil]
+      ]
+    }
+    let(:board_after) {
+      [
+        [nil, nil, nil, nil, nil, nil, nil],
+        [nil, nil, nil, nil, nil, nil, nil],
+        [nil, nil, nil, nil, nil, nil, nil],
+        [nil, pl1, nil, nil, nil, nil, nil],
+        [pl2, pl2, nil, nil, nil, nil, nil],
+        [pl1, pl1, nil, nil, nil, nil, nil]
+      ]
+    }
     subject(:connect4) { described_class.new(board_before, pl1, pl2) }
 
     it 'modifies the board' do
@@ -229,14 +247,16 @@ describe Connect4 do
   end
 
   describe '#available_row' do
-    let(:board) {[
-      ['pl1', nil, nil, nil, nil, nil, nil],
-      ['pl2', nil, nil, nil, nil, nil, nil],
-      ['pl1', nil, nil, nil, nil, nil, nil],
-      ['pl2', nil, nil, nil, nil, nil, nil],
-      ['pl1', nil, nil, nil, nil, nil, nil],
-      ['pl2', 'pl2', nil, nil, nil, nil, nil]
-    ]}
+    let(:board) {
+      [
+        ['pl1', nil, nil, nil, nil, nil, nil],
+        ['pl2', nil, nil, nil, nil, nil, nil],
+        ['pl1', nil, nil, nil, nil, nil, nil],
+        ['pl2', nil, nil, nil, nil, nil, nil],
+        ['pl1', nil, nil, nil, nil, nil, nil],
+        ['pl2', 'pl2', nil, nil, nil, nil, nil]
+      ]
+    }
     subject(:connect4) { described_class.new(board, 'player1', 'player2') }
 
     it 'returns the first available row from the bottom' do
