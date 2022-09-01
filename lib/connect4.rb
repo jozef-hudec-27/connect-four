@@ -10,7 +10,7 @@ class Connect4
     @cols = board[0].length
     @player1 = player1
     @player2 = player2
-    play
+    # play
   end
 
   def pretty_print_board
