@@ -94,7 +94,7 @@ class Connect4
   end
 
   def horizontal_winner?(row, col)
-    return if board[row][col].nil?
+    return if board[row][col].nil? || (col - 3).negative?
 
     current = board[row][col]
     left1, left2, left3 = board[row][col - 1], board[row][col - 2], board[row][col - 3]
@@ -102,7 +102,7 @@ class Connect4
   end
 
   def vertical_winner?(row, col)
-    return if board[row][col].nil?
+    return if board[row][col].nil? || (row - 3).negative?
 
     current = board[row][col]
     up1, up2, up3 = board.dig(row - 1)&.dig(col), board.dig(row - 2)&.dig(col), board.dig(row - 3)&.dig(col)
@@ -110,18 +110,20 @@ class Connect4
   end
 
   def diagonal_winner?(row, col)
-    return if board[row][col].nil?
-
     current = board[row][col]
     left_diagonal_winner?(row, col, current) || right_diagonal_winner?(row, col, current)
   end
 
   def left_diagonal_winner?(row, col, current)
+    return if current.nil? || (row - 3).negative? || (col - 3).negative?
+
     left_up1, left_up2, left_up3 = board[row - 1]&.dig(col - 1), board[row - 2]&.dig(col - 2), board[row - 3]&.dig(col - 3)
     [current, left_up1, left_up2, left_up3].uniq.length == 1
   end
 
   def right_diagonal_winner?(row, col, current)
+    return if current.nil? || (row - 3).negative?
+
     right_up1, right_up2, right_up3 = board[row - 1]&.dig(col + 1), board[row - 2]&.dig(col + 2), board[row - 3]&.dig(col + 3)
     [current, right_up1, right_up2, right_up3].uniq.length == 1
   end
