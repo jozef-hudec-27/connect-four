@@ -1,9 +1,9 @@
-require_relative '../lib/game'
+require_relative '../lib/player'
 
 describe Player do
   describe '.player_name' do
     it 'receives proper starter message' do
-      starter_msg = 'Choose name for player 1'
+      starter_msg = "\nChoose name for player 1"
       expect(described_class).to receive(:puts).with(starter_msg)
       described_class.player_name
     end
@@ -31,9 +31,9 @@ describe Player do
       end
 
       it 'outputs error message' do
-        invalid_name_message = 'Invalid name! Please try again.'
+        invalid_name_message = '⛔ Invalid name! Please try again.'
 
-        expect(described_class).to receive(:puts).with('Choose name for player 1')
+        expect(described_class).to receive(:puts).with("\nChoose name for player 1")
         expect(described_class).to receive(:puts).with(invalid_name_message)
         described_class.player_name
       end
@@ -76,11 +76,11 @@ describe Player do
       end
 
       it 'outputs error message' do
-        invalid_circle_message = 'Invalid circle! Please try again.'
+        invalid_circle_message = '⛔ Invalid circle! Please try again.'
 
-        expect(described_class).to receive(:puts).with('Choose your circle: ')
+        expect(described_class).to receive(:puts).with("\nChoose your circle: ")
         expect(described_class).to receive(:puts).with(
-          'WHITE ⚪   BLACK ⚫   RED 🔴   BLUE 🔵   GREEN 🟢   ORANGE 🟠   YELLOW 🟡   PURPLE 🟣'
+          'BLACK ⚫   RED 🔴   BLUE 🔵   GREEN 🟢   ORANGE 🟠   YELLOW 🟡   PURPLE 🟣'
         )
         expect(described_class).to receive(:puts).with(invalid_circle_message)
         described_class.player_circle_sym
@@ -111,7 +111,7 @@ describe Player do
     end
 
     it "removes the player's circle from available circles" do
-      new_available_circles = { WHITE: '⚪', RED: '🔴', BLUE: '🔵', GREEN: '🟢', ORANGE: '🟠', YELLOW: '🟡', PURPLE: '🟣' }
+      new_available_circles = { RED: '🔴', BLUE: '🔵', GREEN: '🟢', ORANGE: '🟠', YELLOW: '🟡', PURPLE: '🟣' }
       expect { subject.make_my_circle_unavailable }.to change {
                                                          described_class.available_circles
                                                        }.to(new_available_circles)
